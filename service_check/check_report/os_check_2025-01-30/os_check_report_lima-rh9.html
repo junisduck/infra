@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <title>OS Check Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h1, h2 { color: #333; }
+        .status-pass { color: green; }
+        .status-fail { color: red; }
+        pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; white-space: pre-wrap; }
+        .toggle-section { margin-bottom: 20px; }
+        .hidden { display: none; }
+    </style>
+    <script>
+        function toggleSection(sectionId) {
+            var section = document.getElementById(sectionId);
+            if (section.classList.contains('hidden')) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>OS Check Report - 2025-01-30 - lima-rh9</h1>
+    <h2>점검 결과 요약</h2>
+    <p class="❌">OS 상태: <strong>❌</strong></p>
+    <p class="fail">커널 상태: <strong>FAIL</strong></p>
+    <p class="fail">NIC 상태: <strong>FAIL</strong></p>
+    <h3>특이사항:</h3>
+    <ul>
+        <li>OS 버전이 예상과 다릅니다.</li>
+        <li>커널 버전이 예상과 다릅니다 (현재: 5.15.0-302.167.6.el9uek.aarch64).</li>
+        <li>NIC: eth0 속도가 -1 Mbps로 낮습니다.</li>
+    </ul>
+    <div class="toggle-section">
+        <button onclick="toggleSection('os-info')">OS 점검 상세 보기</button>
+        <div id="os-info" class="hidden">
+            <h3>OS 및 커널 정보</h3>
+            <pre>NAME="Oracle Linux Server"
+VERSION="9.5"
+ID="ol"
+ID_LIKE="fedora"
+VARIANT="Server"
+VARIANT_ID="server"
+VERSION_ID="9.5"
+PLATFORM_ID="platform:el9"
+PRETTY_NAME="Oracle Linux Server 9.5"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:oracle:linux:9:5:server"
+HOME_URL="https://linux.oracle.com/"
+BUG_REPORT_URL="https://github.com/oracle/oracle-linux"
+
+ORACLE_BUGZILLA_PRODUCT="Oracle Linux 9"
+ORACLE_BUGZILLA_PRODUCT_VERSION=9.5
+ORACLE_SUPPORT_PRODUCT="Oracle Linux"
+ORACLE_SUPPORT_PRODUCT_VERSION=9.5</pre>
+            <pre>커널 버전: 5.15.0-302.167.6.el9uek.aarch64</pre>
+            <pre> 18:17:35 up 10 min,  2 users,  load average: 0.00, 0.06, 0.02</pre>
+            <pre>Architecture:                         aarch64
+CPU op-mode(s):                       64-bit
+Byte Order:                           Little Endian
+CPU(s):                               4
+On-line CPU(s) list:                  0-3
+Vendor ID:                            Apple
+Model:                                0
+Thread(s) per core:                   1
+Core(s) per socket:                   4
+Socket(s):                            1
+Stepping:                             0x0
+BogoMIPS:                             48.00
+Flags:                                fp asimd evtstrm aes pmull sha1 sha2 crc32 atomics fphp asimdhp cpuid asimdrdm jscvt fcma lrcpc dcpop sha3 asimddp sha512 asimdfhm dit uscat ilrcpc flagm sb paca pacg dcpodp flagm2 frint
+NUMA node(s):                         1
+NUMA node0 CPU(s):                    0-3
+Vulnerability Gather data sampling:   Not affected
+Vulnerability Itlb multihit:          Not affected
+Vulnerability L1tf:                   Not affected
+Vulnerability Mds:                    Not affected
+Vulnerability Meltdown:               Not affected
+Vulnerability Mmio stale data:        Not affected
+Vulnerability Reg file data sampling: Not affected
+Vulnerability Retbleed:               Not affected
+Vulnerability Spec rstack overflow:   Not affected
+Vulnerability Spec store bypass:      Vulnerable
+Vulnerability Spectre v1:             Mitigation; __user pointer sanitization
+Vulnerability Spectre v2:             Not affected
+Vulnerability Srbds:                  Not affected
+Vulnerability Tsx async abort:        Not affected</pre>
+            <pre>               total        used        free      shared  buff/cache   available
+Mem:           7.7Gi       453Mi       6.2Gi        20Mi       1.2Gi       7.3Gi
+Swap:          4.0Gi          0B       4.0Gi</pre>
+            <pre>; Created by cloud-init automatically, do not edit.
+;
+nameserver 192.168.5.3</pre>
+        </div>
+    </div>
+    <div class="toggle-section">
+        <button onclick="toggleSection('firewall-info')">Firewall 상세 보기</button>
+        <div id="firewall-info" class="hidden">
+            <h3>Firewall 정보</h3>
+            <h4>firewall-cmd 정보</h4>
+            <pre>public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: eth0
+  sources: 
+  services: cockpit dhcpv6-client ssh
+  ports: 
+  protocols: 
+  forward: yes
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: </pre>
+            <h4>iptables 정보</h4>
+            <pre>Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         </pre>
+            <h4>ufw 정보</h4>
+            <pre>ufw 실행 실패</pre>
+        </div>
+    </div>
+    <div class="toggle-section">
+        <button onclick="toggleSection('nic-info')">NIC 점검 상세 보기</button>
+        <div id="nic-info" class="hidden">
+            <h3>NIC: eth0</h3>
+            <pre>속도: -1 Mbps</pre>
+            <pre>상태: up</pre>
+        </div> <!-- #nic-info -->
+    </div> <!-- .toggle-section -->
+    <div class="toggle-section">
+        <button onclick="toggleSection('add-class')">추가될 점검은?</button>
+        <div id="add-class" class="hidden">
+        <h4>추가됩니다.</h4>
+        </div>
+    </div>
+</body>
+</html>
